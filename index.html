@@ -37,6 +37,10 @@ button:disabled{opacity:.6;cursor:wait}
 h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:20px;margin:26px 0 6px}
 ul{margin:0;padding-left:20px}li{margin:4px 0}
 .msg{white-space:pre-wrap;background:#f4f7f6;border:1px solid var(--line);border-radius:6px;padding:14px;margin:6px 0 10px}
+
+.math{margin:14px 0 4px;padding:12px 14px;border:2px solid var(--ink);border-radius:6px;background:#f4f7f6}
+.math b{font-family:"Bricolage Grotesque",system-ui,sans-serif}
+.math .bad{color:var(--bad);font-weight:600}.math .good{color:var(--ok);font-weight:600}
 footer{margin-top:30px;font-size:14px;color:var(--muted)}
 </style>
 </head>
@@ -66,12 +70,27 @@ function list(title, items){
   var d=el("div"); d.appendChild(el("h3",null,title)); var u=el("ul");
   items.forEach(function(t){u.appendChild(el("li",null,String(t)))}); d.appendChild(u); return d;
 }
+function mathBox(c){
+  if(!c||c.error||!c.charges_found)return null;
+  var d=el("div","math"); d.appendChild(el("b",null,"Math check (done by Python, not AI)"));
+  var t="I added up "+c.charges_found+" charges: "+c.sum_of_charges.toFixed(2);
+  if(c.total_on_bill!==null)t+=". The bill says total: "+c.total_on_bill.toFixed(2)+".";
+  d.appendChild(el("p",null,t));
+  if(c.total_matches===false)d.appendChild(el("p","bad","The total does not match the charges. Difference: "+c.difference.toFixed(2)));
+  if(c.total_matches===true)d.appendChild(el("p","good","The total matches the charges."));
+  (c.duplicates||[]).forEach(function(x){d.appendChild(el("p","bad","Charged "+x.times+" times: "+x.name+" ("+x.amount.toFixed(2)+" each)"))});
+  (c.late_fee_lines||[]).forEach(function(x){d.appendChild(el("p",null,"Late fee found: "+x+". Check you really paid after the due date."))});
+  (c.vague_lines||[]).forEach(function(x){d.appendChild(el("p",null,"Unclear charge: "+x+". Ask what it is for."))});
+  return d;
+}
+var lastCheck=null;
 function render(r){
   var out=$("out"); out.textContent="";
   var box=el("div","receipt");
   box.appendChild(el("h2",null,r.bill_type||"Your bill"));
   box.appendChild(el("div","total",r.total||""));
   box.appendChild(el("p",null,r.one_line_summary||""));
+  var mb=mathBox(lastCheck); if(mb)box.appendChild(mb);
   (r.charges||[]).forEach(function(c){
     var v=["normal","check","suspicious"].indexOf(c.verdict)>-1?c.verdict:"check";
     var row=el("div","charge "+v);
@@ -95,10 +114,12 @@ $("go").onclick=function(){
   var text=$("bill").value.trim();
   if(text.length<20){fail("Paste the text of your bill first, or tap Try a sample bill."); return}
   var btn=$("go"); btn.disabled=true; btn.textContent="Reading your bill...";
-  $("out").textContent="";
+  $("out").textContent=""; lastCheck=null;
+  var pc=fetch("/api/check",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bill:text})})
+    .then(function(r){return r.json()}).then(function(j){lastCheck=j}).catch(function(){});
   fetch("/api/explain",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bill:text,language:$("lang").value})})
     .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||"Something went wrong."); return j})})
-    .then(render)
+    .then(function(r){return pc.then(function(){render(r)})})
     .catch(function(e){fail(e.message||"Something went wrong. Please try again.")})
     .finally(function(){btn.disabled=false; btn.textContent="Explain my bill"});
 };
