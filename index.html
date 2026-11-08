@@ -7,62 +7,84 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#e9efee;--ink:#14213d;--muted:#5a6678;--paper:#fff;--ok:#2e7d5b;--chk:#b9770e;--bad:#c8372d;--line:#cfd8d6}
+:root{--navy:#0f1b3d;--gold:#ffb703;--bg:#eef2f7;--ink:#14213d;--muted:#5a6678;--ok:#2e7d5b;--chk:#b9770e;--bad:#c8372d;--line:#dde3ee}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,sans-serif;font-size:17px;line-height:1.5}
-.wrap{max-width:720px;margin:0 auto;padding:28px 16px 60px}
-h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:clamp(34px,8vw,54px);line-height:1.02;margin:0 0 10px}
-.sub{color:var(--muted);margin:0 0 24px;max-width:56ch}
-label{font-weight:600;display:block;margin-bottom:6px}
-textarea{width:100%;min-height:190px;padding:14px;border:2px solid var(--ink);border-radius:6px;font:inherit;background:var(--paper);resize:vertical}
-textarea:focus,select:focus,button:focus-visible{outline:3px solid #f2a900;outline-offset:2px}
-.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
-select{padding:11px 12px;border:2px solid var(--ink);border-radius:6px;font:inherit;background:var(--paper)}
-button{font:inherit;font-weight:600;padding:12px 20px;border:2px solid var(--ink);border-radius:6px;background:var(--paper);color:var(--ink);cursor:pointer}
-button.main{background:var(--ink);color:#fff}
+body{margin:0;background:var(--bg) radial-gradient(#c9d3e6 1px,#0000 1px) 0 0/22px 22px;color:var(--ink);font-family:"Source Sans 3",system-ui,sans-serif;font-size:17px;line-height:1.5}
+.hero{background:linear-gradient(160deg,#0f1b3d,#22377a);color:#fff;padding:34px 16px 78px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-70px;top:-70px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,#ffb70366,#0000 70%)}
+.in{max-width:720px;margin:0 auto;position:relative;z-index:1}
+.badge{display:inline-flex;gap:6px;align-items:center;background:#ffffff1c;border:1px solid #ffffff33;padding:4px 12px;border-radius:99px;font-size:14px;margin-bottom:14px}
+h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:clamp(36px,9vw,60px);line-height:1;margin:0 0 12px}
+h1 em{color:var(--gold);font-style:normal}
+.sub{color:#cfd8f0;margin:0;max-width:54ch}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none;font-size:14px}
+.steps li{background:#ffffff14;border-radius:99px;padding:4px 12px}
+.wrap{max-width:720px;margin:-48px auto 0;padding:0 16px 60px;position:relative;z-index:2}
+.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 12px 32px #0f1b3d26}
+label{font-weight:600;display:block;margin-bottom:8px}
+textarea{width:100%;min-height:170px;padding:14px;border:2px solid var(--line);border-radius:12px;font:inherit;background:#fafbfd;resize:vertical}
+textarea:focus,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pills{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.pill{padding:8px 16px;border-radius:99px;border:2px solid var(--line);background:#fff;font:inherit;font-weight:600;cursor:pointer;color:var(--muted)}
+.pill.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+button{font:inherit;font-weight:600;padding:12px 20px;border-radius:12px;cursor:pointer}
+.main{background:var(--gold);border:2px solid var(--gold);color:var(--navy);flex:1;min-width:170px}
+.alt{background:#fff;border:2px solid var(--navy);color:var(--navy)}
 button:disabled{opacity:.6;cursor:wait}
-.note{font-size:14px;color:var(--muted);margin-top:12px}
-.err{margin-top:16px;padding:12px 14px;border-left:5px solid var(--bad);background:#fff}
-.receipt{margin-top:28px;background:var(--paper);padding:26px 22px 34px;box-shadow:0 2px 0 var(--line);position:relative;
+.note{font-size:14px;color:var(--muted);margin:12px 0 0}
+.err{margin-top:16px;padding:12px 14px;border-left:5px solid var(--bad);background:#fff;border-radius:8px}
+.receipt{margin-top:22px;background:#fff;padding:26px 22px 38px;box-shadow:0 12px 32px #0f1b3d26;animation:up .4s ease;
  -webkit-mask:radial-gradient(circle 8px at 8px 100%,#0000 98%,#000) 0 0/16px 100%;mask:radial-gradient(circle 8px at 8px 100%,#0000 98%,#000) 0 0/16px 100%;
  -webkit-mask-composite:source-in;mask-composite:intersect}
-.receipt h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:24px;margin:0}
-.total{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:34px;font-weight:800;margin:4px 0 8px}
+@keyframes up{from{opacity:0;transform:translateY(12px)}}
+@media(prefers-reduced-motion:reduce){.receipt{animation:none}}
+.receipt h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:22px;margin:0;color:var(--muted)}
+.total{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:40px;font-weight:800;margin:2px 0 8px;color:var(--navy)}
+.listen{background:var(--navy);color:#fff;border:0;padding:10px 18px;border-radius:99px;margin:4px 0 6px}
+.vnote{font-size:14px;color:var(--chk);margin:4px 0 0}
 .charge{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 0;border-top:1px dashed var(--line)}
 .charge .nm{font-weight:600}.charge .am{font-weight:600;text-align:right}
 .charge .mn{grid-column:1/-1;color:var(--muted);font-size:16px}
-.tag{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:99px;font-size:13px;font-weight:600;color:#fff}
+.tag{display:inline-block;margin-left:8px;padding:1px 9px;border-radius:99px;font-size:13px;font-weight:600;color:#fff}
 .normal .tag{background:var(--ok)}.check{border-left:5px solid var(--chk);padding-left:10px}.check .tag{background:var(--chk)}
 .suspicious{border-left:5px solid var(--bad);padding-left:10px;background:#fdf3f2}.suspicious .tag{background:var(--bad)}
 h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:20px;margin:26px 0 6px}
 ul{margin:0;padding-left:20px}li{margin:4px 0}
-.msg{white-space:pre-wrap;background:#f4f7f6;border:1px solid var(--line);border-radius:6px;padding:14px;margin:6px 0 10px}
-
-.math{margin:14px 0 4px;padding:12px 14px;border:2px solid var(--ink);border-radius:6px;background:#f4f7f6}
-.math b{font-family:"Bricolage Grotesque",system-ui,sans-serif}
-.math .bad{color:var(--bad);font-weight:600}.math .good{color:var(--ok);font-weight:600}
-footer{margin-top:30px;font-size:14px;color:var(--muted)}
+.msg{white-space:pre-wrap;background:#f4f7fb;border:1px solid var(--line);border-radius:12px;padding:14px;margin:6px 0 10px}
+footer{margin-top:28px;font-size:14px;color:var(--muted);text-align:center}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>Bill Shock Explainer</h1>
-  <p class="sub">Confused by a bill? Paste the text and get every charge explained in simple words, anything suspicious flagged, and a ready-to-send complaint message.</p>
+<header class="hero"><div class="in">
+  <span class="badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="#ffb703"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>AI that reads your bill for you</span>
+  <h1>Bill Shock <em>Explainer</em></h1>
+  <p class="sub">Confused by a bill? Get every charge explained in simple words, anything suspicious flagged, and a complaint message ready to send.</p>
+  <ul class="steps"><li>1. Paste your bill</li><li>2. Understand it</li><li>3. Listen or complain</li></ul>
+</div></header>
 
-  <label for="bill">Paste your bill text here</label>
-  <textarea id="bill" placeholder="Copy the text from your electricity, phone, internet or hospital bill and paste it here..."></textarea>
-  <div class="row">
-    <select id="lang" aria-label="Language"><option>English</option><option>Hindi</option><option>Marathi</option></select>
-    <button class="main" id="go">Explain my bill</button>
-    <button id="sample" type="button">Try a sample bill</button>
+<div class="wrap">
+  <div class="card">
+    <label for="bill">Paste your bill text here</label>
+    <textarea id="bill" placeholder="Copy the text from your electricity, phone, internet or hospital bill and paste it here..."></textarea>
+    <div class="pills" id="pills" role="group" aria-label="Language">
+      <button type="button" class="pill on" data-l="English">English</button>
+      <button type="button" class="pill" data-l="Hindi">हिन्दी</button>
+      <button type="button" class="pill" data-l="Marathi">मराठी</button>
+    </div>
+    <div class="row">
+      <button class="main" id="go">Explain my bill</button>
+      <button class="alt" id="sample" type="button">Try a sample bill</button>
+    </div>
+    <p class="note">Tip: remove personal numbers (account, Aadhaar, card) before pasting. Your text is only used to make this answer.</p>
   </div>
-  <p class="note">Tip: remove personal numbers (account, Aadhaar, card) before pasting. Your text is only used to make this answer.</p>
   <div id="out" aria-live="polite"></div>
   <footer>This is an AI explanation, not legal or financial advice. Always confirm important charges with your provider.</footer>
 </div>
 
 <script>
 var SAMPLE = "MAHA POWER DISTRIBUTION - ELECTRICITY BILL\nBilling period: 01 Oct - 31 Oct\nUnits consumed: 212 kWh\nEnergy charge: Rs 1,486.00\nFixed charge: Rs 130.00\nWheeling charge: Rs 190.80\nFuel adjustment charge: Rs 254.40\nElectricity duty: Rs 188.50\nMeter rent: Rs 45.00\nMeter rent: Rs 45.00\nLate payment surcharge: Rs 120.00\nPrevious payment of Rs 2,100 received on 05 Oct (due date 12 Oct)\nMisc adjustment: Rs 180.00\nTotal payable: Rs 2,639.70\nDue date: 14 Nov";
+var VOICE={English:"en-IN",Hindi:"hi-IN",Marathi:"mr-IN"}, lang="English", usedLang="English";
 var $ = function(id){return document.getElementById(id)};
 function el(tag, cls, text){var e=document.createElement(tag); if(cls)e.className=cls; if(text!==undefined)e.textContent=text; return e}
 function list(title, items){
@@ -70,27 +92,37 @@ function list(title, items){
   var d=el("div"); d.appendChild(el("h3",null,title)); var u=el("ul");
   items.forEach(function(t){u.appendChild(el("li",null,String(t)))}); d.appendChild(u); return d;
 }
-function mathBox(c){
-  if(!c||c.error||!c.charges_found)return null;
-  var d=el("div","math"); d.appendChild(el("b",null,"Math check (done by Python, not AI)"));
-  var t="I added up "+c.charges_found+" charges: "+c.sum_of_charges.toFixed(2);
-  if(c.total_on_bill!==null)t+=". The bill says total: "+c.total_on_bill.toFixed(2)+".";
-  d.appendChild(el("p",null,t));
-  if(c.total_matches===false)d.appendChild(el("p","bad","The total does not match the charges. Difference: "+c.difference.toFixed(2)));
-  if(c.total_matches===true)d.appendChild(el("p","good","The total matches the charges."));
-  (c.duplicates||[]).forEach(function(x){d.appendChild(el("p","bad","Charged "+x.times+" times: "+x.name+" ("+x.amount.toFixed(2)+" each)"))});
-  (c.late_fee_lines||[]).forEach(function(x){d.appendChild(el("p",null,"Late fee found: "+x+". Check you really paid after the due date."))});
-  (c.vague_lines||[]).forEach(function(x){d.appendChild(el("p",null,"Unclear charge: "+x+". Ask what it is for."))});
-  return d;
+function speechText(r){
+  var p=[r.one_line_summary||""];
+  if(r.total)p.push(r.total+".");
+  (r.charges||[]).filter(function(c){return c.verdict!=="normal"}).slice(0,4).forEach(function(c){p.push((c.name||"")+". "+(c.meaning||""))});
+  (r.next_steps||[]).slice(0,3).forEach(function(s){p.push(s)});
+  return p.join(" ");
 }
-var lastCheck=null;
+function hasVoice(code){
+  var v=window.speechSynthesis.getVoices(); if(!v.length)return true;
+  return v.some(function(x){return x.lang.replace("_","-").toLowerCase().indexOf(code.slice(0,2))===0});
+}
+function listenBtn(r){
+  var b=el("button","listen","\u25B6 Listen in "+usedLang);
+  b.onclick=function(){
+    var s=window.speechSynthesis;
+    if(!s){b.textContent="Listening not supported here";return}
+    if(s.speaking){s.cancel();b.textContent="\u25B6 Listen in "+usedLang;return}
+    var u=new SpeechSynthesisUtterance(speechText(r)); u.lang=VOICE[usedLang]; u.rate=.95;
+    u.onend=u.onerror=function(){b.textContent="\u25B6 Listen in "+usedLang};
+    b.textContent="\u25A0 Stop"; s.speak(u);
+  };
+  return b;
+}
 function render(r){
   var out=$("out"); out.textContent="";
   var box=el("div","receipt");
   box.appendChild(el("h2",null,r.bill_type||"Your bill"));
   box.appendChild(el("div","total",r.total||""));
   box.appendChild(el("p",null,r.one_line_summary||""));
-  var mb=mathBox(lastCheck); if(mb)box.appendChild(mb);
+  box.appendChild(listenBtn(r));
+  if(window.speechSynthesis&&!hasVoice(VOICE[usedLang]))box.appendChild(el("p","vnote","This phone may not have a "+usedLang+" voice. Install it in your phone's Text-to-speech settings, or try another language."));
   (r.charges||[]).forEach(function(c){
     var v=["normal","check","suspicious"].indexOf(c.verdict)>-1?c.verdict:"check";
     var row=el("div","charge "+v);
@@ -102,24 +134,28 @@ function render(r){
   if(r.complaint_message){
     box.appendChild(el("h3",null,"Ready-to-send message"));
     box.appendChild(el("div","msg",r.complaint_message));
-    var b=el("button",null,"Copy message"); b.onclick=function(){
+    var b=el("button","alt","Copy message"); b.onclick=function(){
       navigator.clipboard.writeText(r.complaint_message).then(function(){b.textContent="Copied"; setTimeout(function(){b.textContent="Copy message"},1500)});
     }; box.appendChild(b);
   }
   out.appendChild(box); box.scrollIntoView({behavior:"smooth",block:"start"});
 }
 function fail(msg){var out=$("out"); out.textContent=""; out.appendChild(el("div","err",msg))}
+Array.prototype.forEach.call(document.querySelectorAll(".pill"),function(p){
+  p.onclick=function(){lang=p.getAttribute("data-l");
+    Array.prototype.forEach.call(document.querySelectorAll(".pill"),function(x){x.classList.toggle("on",x===p)})}
+});
 $("sample").onclick=function(){$("bill").value=SAMPLE};
 $("go").onclick=function(){
   var text=$("bill").value.trim();
   if(text.length<20){fail("Paste the text of your bill first, or tap Try a sample bill."); return}
+  if(window.speechSynthesis)window.speechSynthesis.cancel();
+  usedLang=lang;
   var btn=$("go"); btn.disabled=true; btn.textContent="Reading your bill...";
-  $("out").textContent=""; lastCheck=null;
-  var pc=fetch("/api/check",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bill:text})})
-    .then(function(r){return r.json()}).then(function(j){lastCheck=j}).catch(function(){});
-  fetch("/api/explain",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bill:text,language:$("lang").value})})
+  $("out").textContent="";
+  fetch("/api/explain",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bill:text,language:usedLang})})
     .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||"Something went wrong."); return j})})
-    .then(function(r){return pc.then(function(){render(r)})})
+    .then(render)
     .catch(function(e){fail(e.message||"Something went wrong. Please try again.")})
     .finally(function(){btn.disabled=false; btn.textContent="Explain my bill"});
 };
