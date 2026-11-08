@@ -3,65 +3,96 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0f1f">
 <title>Bill Shock Explainer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0f1b3d;--gold:#ffb703;--bg:#eef2f7;--ink:#14213d;--muted:#5a6678;--ok:#2e7d5b;--chk:#b9770e;--bad:#c8372d;--line:#dde3ee}
+:root{--bg:#0a0f1f;--txt:#e9edff;--mut:#9aa6c9;--v:#8d74ff;--t:#2dd4bf;--pk:#ff6b9d;--ok:#22a06b;--bad:#d9423a;--chk:#b9770e;--rl:#e6eaf3}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg) radial-gradient(#c9d3e6 1px,#0000 1px) 0 0/22px 22px;color:var(--ink);font-family:"Source Sans 3",system-ui,sans-serif;font-size:17px;line-height:1.5}
-.hero{background:linear-gradient(160deg,#0f1b3d,#22377a);color:#fff;padding:34px 16px 78px;position:relative;overflow:hidden}
-.hero:after{content:"";position:absolute;right:-70px;top:-70px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,#ffb70366,#0000 70%)}
-.in{max-width:720px;margin:0 auto;position:relative;z-index:1}
-.badge{display:inline-flex;gap:6px;align-items:center;background:#ffffff1c;border:1px solid #ffffff33;padding:4px 12px;border-radius:99px;font-size:14px;margin-bottom:14px}
-h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:clamp(36px,9vw,60px);line-height:1;margin:0 0 12px}
-h1 em{color:var(--gold);font-style:normal}
-.sub{color:#cfd8f0;margin:0;max-width:54ch}
-.steps{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none;font-size:14px}
-.steps li{background:#ffffff14;border-radius:99px;padding:4px 12px}
-.wrap{max-width:720px;margin:-48px auto 0;padding:0 16px 60px;position:relative;z-index:2}
-.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 12px 32px #0f1b3d26}
+body{margin:0;background:var(--bg);color:var(--txt);font:17px/1.55 "Source Sans 3",system-ui,sans-serif;overflow-x:hidden}
+.aurora{position:fixed;inset:0;z-index:-1;background:radial-gradient(600px 420px at 8% 0%,#7c5cff55,#0000),radial-gradient(520px 420px at 96% 18%,#2dd4bf40,#0000),radial-gradient(520px 520px at 50% 100%,#ff6b9d26,#0000)}
+.nav{max-width:1000px;margin:0 auto;padding:18px 16px 0;display:flex;align-items:center;gap:10px;font:800 19px "Bricolage Grotesque",system-ui,sans-serif}
+.logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--v),var(--t));display:grid;place-items:center}
+.hero .in{max-width:1000px;margin:0 auto;padding:26px 16px 74px;display:grid;gap:28px;grid-template-columns:1.1fr .9fr;align-items:center}
+@media(max-width:800px){.hero .in{grid-template-columns:1fr}}
+h1{font:800 clamp(36px,7vw,62px)/1.02 "Bricolage Grotesque",system-ui,sans-serif;margin:0 0 14px;letter-spacing:-.02em}
+.grad{background:linear-gradient(90deg,#b3a2ff,var(--t));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mut);margin:0 0 18px;max-width:46ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none;font-size:14px}
+.chips li{padding:5px 12px;border-radius:99px;background:#ffffff0f;border:1px solid #ffffff1f;margin:0}
+.stage{perspective:1100px;display:grid;place-items:center;min-height:290px}
+.float{animation:fl 6s ease-in-out infinite;transform-style:preserve-3d}
+@keyframes fl{50%{transform:translateY(-12px)}}
+.bill3d{--rx:0deg;--ry:0deg;width:min(290px,78vw);background:#fff;color:#14213d;border-radius:16px;padding:18px 20px;font-size:14px;
+ transform:rotateX(calc(10deg + var(--rx))) rotateY(calc(-20deg + var(--ry))) rotateZ(3deg);transition:transform .15s;
+ box-shadow:-30px 30px 60px #0000006b,0 0 0 1px #ffffff26}
+.bill3d h4{margin:0 0 8px;font:800 15px "Bricolage Grotesque",system-ui,sans-serif;letter-spacing:.04em;color:#5a6678}
+.ml{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px dashed var(--rl)}
+.ml i{font-style:normal;font-size:11px;font-weight:700;color:#fff;border-radius:99px;padding:1px 8px;margin-left:6px}
+.ml.r{background:#fdf1f0;margin:0 -8px;padding:6px 8px;border-radius:6px}.ml.r i{background:var(--bad)}.ml.a i{background:var(--chk)}
+.ml.t{font-weight:800;font-size:17px;border-top:2px solid #14213d;margin-top:4px}
+.wrap{max-width:720px;margin:-38px auto 0;padding:0 16px 60px}
+.card{background:#ffffff10;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid #ffffff24;border-radius:22px;padding:22px;box-shadow:0 20px 50px #00000059}
 label{font-weight:600;display:block;margin-bottom:8px}
-textarea{width:100%;min-height:170px;padding:14px;border:2px solid var(--line);border-radius:12px;font:inherit;background:#fafbfd;resize:vertical}
-textarea:focus,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+textarea{width:100%;min-height:170px;padding:14px;border:1.5px solid #ffffff2b;border-radius:14px;font:inherit;background:#0a0f1fb8;color:var(--txt);resize:vertical}
+textarea::placeholder{color:#7f8bb0}
+textarea:focus{outline:none;border-color:var(--t);box-shadow:0 0 0 4px #2dd4bf33}
+button:focus-visible{outline:3px solid var(--t);outline-offset:2px}
 .pills{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-.pill{padding:8px 16px;border-radius:99px;border:2px solid var(--line);background:#fff;font:inherit;font-weight:600;cursor:pointer;color:var(--muted)}
-.pill.on{background:var(--navy);border-color:var(--navy);color:#fff}
-.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-button{font:inherit;font-weight:600;padding:12px 20px;border-radius:12px;cursor:pointer}
-.main{background:var(--gold);border:2px solid var(--gold);color:var(--navy);flex:1;min-width:170px}
-.alt{background:#fff;border:2px solid var(--navy);color:var(--navy)}
-button:disabled{opacity:.6;cursor:wait}
-.note{font-size:14px;color:var(--muted);margin:12px 0 0}
-.err{margin-top:16px;padding:12px 14px;border-left:5px solid var(--bad);background:#fff;border-radius:8px}
-.receipt{margin-top:22px;background:#fff;padding:26px 22px 38px;box-shadow:0 12px 32px #0f1b3d26;animation:up .4s ease;
+.pill{padding:8px 18px;border-radius:99px;border:1.5px solid #ffffff2b;background:#ffffff0f;font:inherit;font-weight:600;cursor:pointer;color:var(--mut)}
+.pill.on{background:linear-gradient(135deg,var(--v),#5b8cff);border-color:transparent;color:#fff}
+.row{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+button{font:inherit;font-weight:700;padding:13px 22px;border-radius:14px;cursor:pointer}
+.main{flex:1;min-width:170px;border:0;color:#07101f;background:linear-gradient(135deg,var(--v),var(--t));box-shadow:0 5px 0 #4a3aa8,0 14px 26px #7c5cff55;transition:transform .08s,box-shadow .08s}
+.main:active{transform:translateY(4px);box-shadow:0 1px 0 #4a3aa8,0 6px 12px #7c5cff55}
+.alt{background:#ffffff12;border:1.5px solid #ffffff33;color:var(--txt)}
+button:disabled{opacity:.65;cursor:wait}
+.note{font-size:14px;color:var(--mut);margin:14px 0 0}
+.err{margin-top:16px;padding:12px 14px;border-left:5px solid var(--pk);background:#ff6b9d1f;color:#ffd9e6;border-radius:10px}
+#out{perspective:1100px}
+.receipt{margin-top:24px;background:#fff;color:#14213d;padding:26px 22px 40px;box-shadow:0 24px 60px #00000066;animation:up .55s cubic-bezier(.2,.8,.2,1);transform-origin:top center;
  -webkit-mask:radial-gradient(circle 8px at 8px 100%,#0000 98%,#000) 0 0/16px 100%;mask:radial-gradient(circle 8px at 8px 100%,#0000 98%,#000) 0 0/16px 100%;
  -webkit-mask-composite:source-in;mask-composite:intersect}
-@keyframes up{from{opacity:0;transform:translateY(12px)}}
-@media(prefers-reduced-motion:reduce){.receipt{animation:none}}
-.receipt h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:22px;margin:0;color:var(--muted)}
-.total{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:40px;font-weight:800;margin:2px 0 8px;color:var(--navy)}
-.listen{background:var(--navy);color:#fff;border:0;padding:10px 18px;border-radius:99px;margin:4px 0 6px}
-.vnote{font-size:14px;color:var(--chk);margin:4px 0 0}
-.charge{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 0;border-top:1px dashed var(--line)}
+@keyframes up{from{opacity:0;transform:rotateX(16deg) translateY(30px)}}
+@media(prefers-reduced-motion:reduce){.receipt,.float{animation:none}}
+.receipt h2{font:800 22px "Bricolage Grotesque",system-ui,sans-serif;margin:0;color:#5a6678}
+.total{font:800 42px "Bricolage Grotesque",system-ui,sans-serif;margin:2px 0 8px;color:#14213d}
+.listen{border:0;color:#fff;background:linear-gradient(135deg,#6d4cff,#1fa392);padding:10px 20px;border-radius:99px;margin:4px 0 8px}
+.charge{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 0;border-top:1px dashed var(--rl)}
 .charge .nm{font-weight:600}.charge .am{font-weight:600;text-align:right}
-.charge .mn{grid-column:1/-1;color:var(--muted);font-size:16px}
+.charge .mn{grid-column:1/-1;color:#5a6678;font-size:16px}
 .tag{display:inline-block;margin-left:8px;padding:1px 9px;border-radius:99px;font-size:13px;font-weight:600;color:#fff}
 .normal .tag{background:var(--ok)}.check{border-left:5px solid var(--chk);padding-left:10px}.check .tag{background:var(--chk)}
 .suspicious{border-left:5px solid var(--bad);padding-left:10px;background:#fdf3f2}.suspicious .tag{background:var(--bad)}
-h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:20px;margin:26px 0 6px}
+h3{font:800 20px "Bricolage Grotesque",system-ui,sans-serif;margin:26px 0 6px}
 ul{margin:0;padding-left:20px}li{margin:4px 0}
-.msg{white-space:pre-wrap;background:#f4f7fb;border:1px solid var(--line);border-radius:12px;padding:14px;margin:6px 0 10px}
-footer{margin-top:28px;font-size:14px;color:var(--muted);text-align:center}
+.msg{white-space:pre-wrap;background:#f4f7fb;border:1px solid var(--rl);border-radius:12px;padding:14px;margin:6px 0 10px}
+.receipt .alt{background:#fff;color:#14213d;border:1.5px solid #14213d}
+footer{margin-top:30px;font-size:14px;color:var(--mut);text-align:center}
 </style>
 </head>
 <body>
-<header class="hero"><div class="in">
-  <span class="badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="#ffb703"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>AI that reads your bill for you</span>
-  <h1>Bill Shock <em>Explainer</em></h1>
-  <p class="sub">Confused by a bill? Get every charge explained in simple words, anything suspicious flagged, and a complaint message ready to send.</p>
-  <ul class="steps"><li>1. Paste your bill</li><li>2. Understand it</li><li>3. Listen or complain</li></ul>
-</div></header>
+<div class="aurora"></div>
+<header class="hero">
+  <div class="nav"><span class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="#07101f"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span>Bill Shock Explainer</div>
+  <div class="in">
+    <div>
+      <h1>Understand any bill <span class="grad">in seconds</span></h1>
+      <p class="sub">Paste a confusing bill. Get every charge in simple words, suspicious ones flagged, and a complaint message ready to send.</p>
+      <ul class="chips"><li>English</li><li>हिन्दी</li><li>मराठी</li><li>Listen aloud</li><li>Nothing saved on this site</li></ul>
+    </div>
+    <div class="stage" aria-hidden="true"><div class="float"><div class="bill3d" id="bill3d">
+      <h4>ELECTRICITY BILL</h4>
+      <div class="ml"><span>Energy charge</span><span>1,486.00</span></div>
+      <div class="ml"><span>Fixed charge</span><span>130.00</span></div>
+      <div class="ml r"><span>Meter rent<i>Charged twice</i></span><span>45.00</span></div>
+      <div class="ml r"><span>Meter rent</span><span>45.00</span></div>
+      <div class="ml a"><span>Late surcharge<i>Check</i></span><span>120.00</span></div>
+      <div class="ml t"><span>Total</span><span>2,639.70</span></div>
+    </div></div></div>
+  </div>
+</header>
 
 <div class="wrap">
   <div class="card">
@@ -76,12 +107,11 @@ footer{margin-top:28px;font-size:14px;color:var(--muted);text-align:center}
       <button class="main" id="go">Explain my bill</button>
       <button class="alt" id="sample" type="button">Try a sample bill</button>
     </div>
-    <p class="note">Tip: remove personal numbers (account, Aadhaar, card) before pasting. Your text is only used to make this answer.</p>
+    <p class="note">Tip: remove personal numbers (account, Aadhaar, card) before pasting.</p>
   </div>
   <div id="out" aria-live="polite"></div>
   <footer>This is an AI explanation, not legal or financial advice. Always confirm important charges with your provider.</footer>
 </div>
-
 <script>
 var SAMPLE = "MAHA POWER DISTRIBUTION - ELECTRICITY BILL\nBilling period: 01 Oct - 31 Oct\nUnits consumed: 212 kWh\nEnergy charge: Rs 1,486.00\nFixed charge: Rs 130.00\nWheeling charge: Rs 190.80\nFuel adjustment charge: Rs 254.40\nElectricity duty: Rs 188.50\nMeter rent: Rs 45.00\nMeter rent: Rs 45.00\nLate payment surcharge: Rs 120.00\nPrevious payment of Rs 2,100 received on 05 Oct (due date 12 Oct)\nMisc adjustment: Rs 180.00\nTotal payable: Rs 2,639.70\nDue date: 14 Nov";
 var VOICE={English:"en-IN",Hindi:"hi-IN",Marathi:"mr-IN"}, lang="English", usedLang="English";
@@ -99,19 +129,25 @@ function speechText(r){
   (r.next_steps||[]).slice(0,3).forEach(function(s){p.push(s)});
   return p.join(" ");
 }
-function hasVoice(code){
-  var v=window.speechSynthesis.getVoices(); if(!v.length)return true;
-  return v.some(function(x){return x.lang.replace("_","-").toLowerCase().indexOf(code.slice(0,2))===0});
+var player=null;
+function stopAudio(){if(player){player.pause();player=null}if(window.speechSynthesis)window.speechSynthesis.cancel()}
+function browserSpeak(text,b,label){
+  var s=window.speechSynthesis;
+  if(!s){b.textContent="Audio not available";return}
+  var u=new SpeechSynthesisUtterance(text); u.lang=VOICE[usedLang]; u.rate=.95;
+  u.onend=u.onerror=function(){b.textContent=label};
+  b.textContent="\u25A0 Stop"; s.speak(u);
 }
 function listenBtn(r){
-  var b=el("button","listen","\u25B6 Listen in "+usedLang);
+  var label="\u25B6 Listen in "+usedLang, b=el("button","listen",label);
   b.onclick=function(){
-    var s=window.speechSynthesis;
-    if(!s){b.textContent="Listening not supported here";return}
-    if(s.speaking){s.cancel();b.textContent="\u25B6 Listen in "+usedLang;return}
-    var u=new SpeechSynthesisUtterance(speechText(r)); u.lang=VOICE[usedLang]; u.rate=.95;
-    u.onend=u.onerror=function(){b.textContent="\u25B6 Listen in "+usedLang};
-    b.textContent="\u25A0 Stop"; s.speak(u);
+    if(player||(window.speechSynthesis&&window.speechSynthesis.speaking)){stopAudio();b.textContent=label;return}
+    b.textContent="Preparing audio...";
+    var text=speechText(r).slice(0,1000);
+    fetch("/api/speak",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text,language:usedLang})})
+      .then(function(x){return x.json().then(function(j){if(!x.ok||!j.audio)throw 0;return j.audio})})
+      .then(function(a){player=new Audio("data:audio/mpeg;base64,"+a);player.onended=function(){player=null;b.textContent=label};b.textContent="\u25A0 Stop";return player.play()})
+      .catch(function(){player=null;browserSpeak(text,b,label)});
   };
   return b;
 }
@@ -122,7 +158,6 @@ function render(r){
   box.appendChild(el("div","total",r.total||""));
   box.appendChild(el("p",null,r.one_line_summary||""));
   box.appendChild(listenBtn(r));
-  if(window.speechSynthesis&&!hasVoice(VOICE[usedLang]))box.appendChild(el("p","vnote","This phone may not have a "+usedLang+" voice. Install it in your phone's Text-to-speech settings, or try another language."));
   (r.charges||[]).forEach(function(c){
     var v=["normal","check","suspicious"].indexOf(c.verdict)>-1?c.verdict:"check";
     var row=el("div","charge "+v);
@@ -149,7 +184,7 @@ $("sample").onclick=function(){$("bill").value=SAMPLE};
 $("go").onclick=function(){
   var text=$("bill").value.trim();
   if(text.length<20){fail("Paste the text of your bill first, or tap Try a sample bill."); return}
-  if(window.speechSynthesis)window.speechSynthesis.cancel();
+  stopAudio();
   usedLang=lang;
   var btn=$("go"); btn.disabled=true; btn.textContent="Reading your bill...";
   $("out").textContent="";
@@ -159,6 +194,13 @@ $("go").onclick=function(){
     .catch(function(e){fail(e.message||"Something went wrong. Please try again.")})
     .finally(function(){btn.disabled=false; btn.textContent="Explain my bill"});
 };
+</script>
+<script>
+(function(){var h=document.querySelector(".hero"),b=document.getElementById("bill3d");
+if(!h||!b||matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+h.addEventListener("pointermove",function(e){var r=h.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+b.style.setProperty("--ry",(x*18)+"deg");b.style.setProperty("--rx",(-y*14)+"deg")});
+h.addEventListener("pointerleave",function(){b.style.setProperty("--ry","0deg");b.style.setProperty("--rx","0deg")});})();
 </script>
 </body>
 </html>
