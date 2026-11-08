@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bill Shock Explainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e9efee;--ink:#14213d;--muted:#5a6678;--paper:#fff;--ok:#2e7d5b;--chk:#b9770e;--bad:#c8372d;--line:#cfd8d6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,sans-serif;font-size:17px;line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding:28px 16px 60px}
+h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:clamp(34px,8vw,54px);line-height:1.02;margin:0 0 10px}
+.sub{color:var(--muted);margin:0 0 24px;max-width:56ch}
+label{font-weight:600;display:block;margin-bottom:6px}
+textarea{width:100%;min-height:190px;padding:14px;border:2px solid var(--ink);border-radius:6px;font:inherit;background:var(--paper);resize:vertical}
+textarea:focus,select:focus,button:focus-visible{outline:3px solid #f2a900;outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+select{padding:11px 12px;border:2px solid var(--ink);border-radius:6px;font:inherit;background:var(--paper)}
+button{font:inherit;font-weight:600;padding:12px 20px;border:2px solid var(--ink);border-radius:6px;background:var(--paper);color:var(--ink);cursor:pointer}
+button.main{background:var(--ink);color:#fff}
+button:disabled{opacity:.6;cursor:wait}
+.note{font-size:14px;color:var(--muted);margin-top:12px}
+.err{margin-top:16px;padding:12px 14px;border-left:5px solid var(--bad);background:#fff}
+.receipt{margin-top:28px;background:var(--paper);padding:26px 22px 34px;box-shadow:0 2px 0 var(--line);position:relative;
+ -webkit-mask:radial-gradient(circle 8px at 8px 100%,#0000 98%,#000) 0 0/16px 100%;mask:radial-gradient(circle 8px at 8px 100%,#0000 98%,#000) 0 0/16px 100%;
+ -webkit-mask-composite:source-in;mask-composite:intersect}
+.receipt h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:24px;margin:0}
+.total{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:34px;font-weight:800;margin:4px 0 8px}
+.charge{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 0;border-top:1px dashed var(--line)}
+.charge .nm{font-weight:600}.charge .am{font-weight:600;text-align:right}
+.charge .mn{grid-column:1/-1;color:var(--muted);font-size:16px}
+.tag{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:99px;font-size:13px;font-weight:600;color:#fff}
+.normal .tag{background:var(--ok)}.check{border-left:5px solid var(--chk);padding-left:10px}.check .tag{background:var(--chk)}
+.suspicious{border-left:5px solid var(--bad);padding-left:10px;background:#fdf3f2}.suspicious .tag{background:var(--bad)}
+h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:20px;margin:26px 0 6px}
+ul{margin:0;padding-left:20px}li{margin:4px 0}
+.msg{white-space:pre-wrap;background:#f4f7f6;border:1px solid var(--line);border-radius:6px;padding:14px;margin:6px 0 10px}
+footer{margin-top:30px;font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Bill Shock Explainer</h1>
+  <p class="sub">Confused by a bill? Paste the text and get every charge explained in simple words, anything suspicious flagged, and a ready-to-send complaint message.</p>
+
+  <label for="bill">Paste your bill text here</label>
+  <textarea id="bill" placeholder="Copy the text from your electricity, phone, internet or hospital bill and paste it here..."></textarea>
+  <div class="row">
+    <select id="lang" aria-label="Language"><option>English</option><option>Hindi</option><option>Marathi</option></select>
+    <button class="main" id="go">Explain my bill</button>
+    <button id="sample" type="button">Try a sample bill</button>
+  </div>
+  <p class="note">Tip: remove personal numbers (account, Aadhaar, card) before pasting. Your text is only used to make this answer.</p>
+  <div id="out" aria-live="polite"></div>
+  <footer>This is an AI explanation, not legal or financial advice. Always confirm important charges with your provider.</footer>
+</div>
+
+<script>
+var SAMPLE = "MAHA POWER DISTRIBUTION - ELECTRICITY BILL\nBilling period: 01 Oct - 31 Oct\nUnits consumed: 212 kWh\nEnergy charge: Rs 1,486.00\nFixed charge: Rs 130.00\nWheeling charge: Rs 190.80\nFuel adjustment charge: Rs 254.40\nElectricity duty: Rs 188.50\nMeter rent: Rs 45.00\nMeter rent: Rs 45.00\nLate payment surcharge: Rs 120.00\nPrevious payment of Rs 2,100 received on 05 Oct (due date 12 Oct)\nMisc adjustment: Rs 180.00\nTotal payable: Rs 2,639.70\nDue date: 14 Nov";
+var $ = function(id){return document.getElementById(id)};
+function el(tag, cls, text){var e=document.createElement(tag); if(cls)e.className=cls; if(text!==undefined)e.textContent=text; return e}
+function list(title, items){
+  if(!items||!items.length)return null;
+  var d=el("div"); d.appendChild(el("h3",null,title)); var u=el("ul");
+  items.forEach(function(t){u.appendChild(el("li",null,String(t)))}); d.appendChild(u); return d;
+}
+function render(r){
+  var out=$("out"); out.textContent="";
+  var box=el("div","receipt");
+  box.appendChild(el("h2",null,r.bill_type||"Your bill"));
+  box.appendChild(el("div","total",r.total||""));
+  box.appendChild(el("p",null,r.one_line_summary||""));
+  (r.charges||[]).forEach(function(c){
+    var v=["normal","check","suspicious"].indexOf(c.verdict)>-1?c.verdict:"check";
+    var row=el("div","charge "+v);
+    var nm=el("div","nm",c.name||""); nm.appendChild(el("span","tag",v==="normal"?"Looks fine":v==="check"?"Ask about it":"Looks wrong"));
+    row.appendChild(nm); row.appendChild(el("div","am",c.amount||"")); row.appendChild(el("div","mn",c.meaning||""));
+    box.appendChild(row);
+  });
+  [list("Red flags",r.red_flags),list("Questions to ask the company",r.questions_to_ask),list("What to do next",r.next_steps)].forEach(function(s){if(s)box.appendChild(s)});
+  if(r.complaint_message){
+    box.appendChild(el("h3",null,"Ready-to-send message"));
+    box.appendChild(el("div","msg",r.complaint_message));
+    var b=el("button",null,"Copy message"); b.onclick=function(){
+      navigator.clipboard.writeText(r.complaint_message).then(function(){b.textContent="Copied"; setTimeout(function(){b.textContent="Copy message"},1500)});
+    }; box.appendChild(b);
+  }
+  out.appendChild(box); box.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function fail(msg){var out=$("out"); out.textContent=""; out.appendChild(el("div","err",msg))}
+$("sample").onclick=function(){$("bill").value=SAMPLE};
+$("go").onclick=function(){
+  var text=$("bill").value.trim();
+  if(text.length<20){fail("Paste the text of your bill first, or tap Try a sample bill."); return}
+  var btn=$("go"); btn.disabled=true; btn.textContent="Reading your bill...";
+  $("out").textContent="";
+  fetch("/api/explain",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bill:text,language:$("lang").value})})
+    .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||"Something went wrong."); return j})})
+    .then(render)
+    .catch(function(e){fail(e.message||"Something went wrong. Please try again.")})
+    .finally(function(){btn.disabled=false; btn.textContent="Explain my bill"});
+};
+</script>
+</body>
+</html>
