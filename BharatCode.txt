@@ -1,0 +1,11 @@
+Project: Bill Shock Explainer
+
+This project uses the BharatCode model API (https://bharatcode.ai/api/model/v1)
+with the model qwen-3.8-27b via the /chat/completions endpoint.
+
+How BharatCode is used:
+- A user pastes the text of a confusing bill (electricity, phone, internet, hospital, etc.).
+- The server sends the text to BharatCode's Qwen model with instructions to return a structured explanation.
+- The model explains each charge in simple English, Hindi or Marathi, flags charges that look duplicated or unexplained, lists questions to ask the company, and drafts a polite complaint message.
+
+The API key is stored only as a server environment variable (BHARATCODE_API_KEY) and is never included in this repository or sent to the browser.
