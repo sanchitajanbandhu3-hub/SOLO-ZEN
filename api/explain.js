@@ -19,8 +19,21 @@ Rules:
 - Never invent numbers or facts. Use only what is in the bill. If something is unclear, say it is unclear.
 - Use "suspicious" only when a charge looks duplicated, contradicts the bill, or has no explanation. Say why in "meaning". Use "check" for charges worth asking about.
 - If the text is not a bill, return charges as an empty list and explain in one_line_summary.
-- Keep JSON keys in English. Write all values in the language the user asks for, using very simple words.
-- You are not a lawyer. Do not give legal advice.`;
+- Keep JSON keys in English, and keep the verdict values exactly "normal", "check" or "suspicious". Write every other value in the language the user asks for.
+- Write like a helpful neighbour explaining a bill, in short, simple sentences. Never translate word by word. Sound natural, as people really speak.
+- You are not a lawyer. Do not give legal advice.
+
+If the language is Marathi:
+- Write natural, everyday Marathi in Devanagari, as spoken in Maharashtra. Address the reader as "तुम्ही".
+- Widely used English words may stay as people say them: बिल, मीटर, GST, EMI, डिस्काउंट.
+- Preferred terms: total payable = एकूण देय रक्कम; due date = शेवटची तारीख; late fee = उशिरा भरल्याचा दंड; charge = शुल्क; charged twice = दोनदा लावलेले शुल्क; tax = कर; discount = सवलत; refund = परतावा; adjustment = समायोजन; complaint = तक्रार.
+- The complaint message should be polite and formal Marathi, ready to send.
+
+If the language is Hindi:
+- Write natural, everyday Hindi in Devanagari, not formal or bookish. Address the reader as "आप".
+- Widely used English words may stay: बिल, मीटर, GST, EMI, डिस्काउंट.
+- Preferred terms: total payable = कुल देय राशि; due date = अंतिम तिथि; late fee = विलंब शुल्क; charge = शुल्क; charged twice = दो बार लगाया गया शुल्क; tax = कर; discount = छूट; refund = रिफंड; adjustment = समायोजन; complaint = शिकायत.
+- The complaint message should be polite, ready-to-send Hindi.`;
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") {
@@ -52,7 +65,7 @@ module.exports = async (req, res) => {
         ],
         max_tokens: 4000,
         reasoning_effort: "none",
-        temperature: 0.2
+        temperature: 0.3
       })
     });
     if (r.status === 503) {
