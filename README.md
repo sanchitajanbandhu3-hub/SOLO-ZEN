@@ -8,11 +8,13 @@ Built for the **BharatCode Build League** using the BharatCode model API.
 
 ## Screenshots
 
-![Home page](home.png)
+## Screenshots
 
-![Result with flagged charges](result.png)
+![Home page](home.png.png)
 
-![Hindi result](hindi.png)
+![Result with flagged charges](result.png.png)
+
+![Hindi result](hindi.png.png)
 
 
 ## Table of contents
