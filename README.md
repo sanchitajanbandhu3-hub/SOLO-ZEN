@@ -6,8 +6,17 @@ Built for the **BharatCode Build League** using the BharatCode model API.
 
 **Live demo:** https://billshockexplainer.vercel.app/ (tap "Try a sample bill")
 
-## Table of contents
+## Screenshots
 
+![Home page](home.png)
+
+![Result with flagged charges](result.png)
+
+![Hindi result](hindi.png)
+
+
+## Table of contents
+- [Screenshots](#screenshots)
 - [Overview](#overview)
 - [The problem](#the-problem)
 - [The solution](#the-solution)
@@ -106,7 +115,7 @@ The browser never talks to the AI model directly. It calls our own serverless fu
 | BharatCode API | AI explanation of the bill |
 | Google text-to-speech (through gTTS) | Spoken audio for the explanation |
 
-Production endpoint: `POST https://billshockexplainer.vercel.app//api/explain`
+Production endpoint: `POST https://billshockexplainer.vercel.app/api/explain`
 
 ## Project structure
 
@@ -217,10 +226,8 @@ Response: `{ "audio": "<base64 MP3>" }`, or status 502 with `{ "error": "Could n
 |---|---|
 | Live deployment on Vercel | Working |
 | Bill explanation flow with the sample bill | Tested in English, Hindi and Marathi |
-| Audio ("Listen") | [CONFIRM: working with Python audio / falls back to browser voice] |
-| Bills other than the sample | [CONFIRM: tested with ELECTRIC BILL___ ] |
-
-Update this table to match what you have actually tested.
+| Audio ("Listen") | Working with Python audio |
+| Bills other than the sample | Tested with an electricity bill |
 
 ## Testing and quality verification
 
