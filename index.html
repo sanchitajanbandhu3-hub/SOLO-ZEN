@@ -3,101 +3,172 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0a0f1f">
+<meta name="theme-color" content="#050509">
 <title>Bill Shock Explainer</title>
+<script>document.documentElement.classList.add("js")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0f1f;--txt:#e9edff;--mut:#9aa6c9;--v:#8d74ff;--t:#2dd4bf;--pk:#ff6b9d;--ok:#22a06b;--bad:#d9423a;--chk:#b9770e;--rl:#e6eaf3}
+:root{--bg:#050509;--bg2:#0b0a18;--v:#8b5cf6;--v2:#a78bfa;--p:#c084fc;--txt:#f4f2ff;--mut:#a8a5c4;--dim:#7d7a99;--ok:#22a06b;--bad:#e5484d;--chk:#b9770e;--rl:#e8e6f3}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--txt);font:17px/1.55 "Source Sans 3",system-ui,sans-serif;overflow-x:hidden}
-.aurora{position:fixed;inset:0;z-index:-1;background:radial-gradient(600px 420px at 8% 0%,#7c5cff55,#0000),radial-gradient(520px 420px at 96% 18%,#2dd4bf40,#0000),radial-gradient(520px 520px at 50% 100%,#ff6b9d26,#0000)}
-.nav{max-width:1000px;margin:0 auto;padding:18px 16px 0;display:flex;align-items:center;gap:10px;font:800 19px "Bricolage Grotesque",system-ui,sans-serif}
-.logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--v),var(--t));display:grid;place-items:center}
-.hero .in{max-width:1000px;margin:0 auto;padding:26px 16px 74px;display:grid;gap:28px;grid-template-columns:1.1fr .9fr;align-items:center}
-@media(max-width:800px){.hero .in{grid-template-columns:1fr}}
-h1{font:800 clamp(36px,7vw,62px)/1.02 "Bricolage Grotesque",system-ui,sans-serif;margin:0 0 14px;letter-spacing:-.02em}
-.grad{background:linear-gradient(90deg,#b3a2ff,var(--t));-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{color:var(--mut);margin:0 0 18px;max-width:46ch}
-.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none;font-size:14px}
-.chips li{padding:5px 12px;border-radius:99px;background:#ffffff0f;border:1px solid #ffffff1f;margin:0}
-.stage{perspective:1100px;display:grid;place-items:center;min-height:290px}
-.float{animation:fl 6s ease-in-out infinite;transform-style:preserve-3d}
-@keyframes fl{50%{transform:translateY(-12px)}}
-.bill3d{--rx:0deg;--ry:0deg;width:min(290px,78vw);background:#fff;color:#14213d;border-radius:16px;padding:18px 20px;font-size:14px;
- transform:rotateX(calc(10deg + var(--rx))) rotateY(calc(-20deg + var(--ry))) rotateZ(3deg);transition:transform .15s;
- box-shadow:-30px 30px 60px #0000006b,0 0 0 1px #ffffff26}
-.bill3d h4{margin:0 0 8px;font:800 15px "Bricolage Grotesque",system-ui,sans-serif;letter-spacing:.04em;color:#5a6678}
-.ml{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px dashed var(--rl)}
-.ml i{font-style:normal;font-size:11px;font-weight:700;color:#fff;border-radius:99px;padding:1px 8px;margin-left:6px}
-.ml.r{background:#fdf1f0;margin:0 -8px;padding:6px 8px;border-radius:6px}.ml.r i{background:var(--bad)}.ml.a i{background:var(--chk)}
-.ml.t{font-weight:800;font-size:17px;border-top:2px solid #14213d;margin-top:4px}
-.wrap{max-width:720px;margin:-38px auto 0;padding:0 16px 60px}
-.card{background:#ffffff10;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid #ffffff24;border-radius:22px;padding:22px;box-shadow:0 20px 50px #00000059}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--txt);font:17px/1.6 "Inter",system-ui,sans-serif;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(900px 600px at 50% -10%,#1a1038,var(--bg))}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;animation:drift 18s ease-in-out infinite alternate}
+.o1{width:420px;height:420px;background:#7c3aed;left:-120px;top:10%}
+.o2{width:360px;height:360px;background:#c026d3;right:-100px;top:45%;animation-delay:-6s;opacity:.35}
+.o3{width:320px;height:320px;background:#4f46e5;left:35%;bottom:-120px;animation-delay:-11s;opacity:.4}
+@keyframes drift{to{transform:translate(60px,-50px) scale(1.15)}}
+h1,h2,h3,h4{font-family:"Sora",system-ui,sans-serif;letter-spacing:-.02em;margin:0}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:12px max(16px,calc((100vw - 1100px)/2));background:#050509b3;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid #ffffff12}
+.brand{display:flex;align-items:center;gap:10px;font:700 18px "Sora",system-ui,sans-serif;color:var(--txt);text-decoration:none}
+.logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--v),var(--p));display:grid;place-items:center;box-shadow:0 0 24px #8b5cf688}
+.links{display:flex;align-items:center;gap:26px}
+.links a{color:var(--mut);text-decoration:none;font-size:15px;transition:color .2s}
+.links a:hover{color:#fff}
+.links .cta{color:#fff;background:linear-gradient(135deg,var(--v),#6d28d9);padding:9px 18px;border-radius:99px;box-shadow:0 0 26px #8b5cf655}
+.burger{display:none;background:none;border:1px solid #ffffff2b;color:#fff;border-radius:10px;width:42px;height:40px;padding:0;font-size:20px}
+@media(max-width:760px){.burger{display:block}.links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#0b0a18f2;border-bottom:1px solid #ffffff14;max-height:0;overflow:hidden;transition:max-height .3s}.nav.open .links{max-height:320px}.links a{padding:14px 20px}.links .cta{margin:8px 16px 14px;text-align:center}}
+section,header{padding:0 16px}
+.in{max-width:1100px;margin:0 auto}
+.hero{padding-top:110px;padding-bottom:70px}
+.hero .in{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
+@media(max-width:860px){.hero .in{grid-template-columns:1fr}}
+.badge{display:inline-block;padding:6px 14px;border-radius:99px;border:1px solid #8b5cf655;background:#8b5cf61a;color:var(--v2);font-size:13px;font-weight:600;margin-bottom:18px}
+h1{font-size:clamp(38px,7.4vw,70px);line-height:1.02;font-weight:800;margin-bottom:18px}
+.grad{background:linear-gradient(90deg,#c4b5fd,#e879f9,#8b5cf6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--mut);max-width:48ch;margin:0 0 26px;font-size:18px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;text-decoration:none;font:600 16px "Inter",system-ui,sans-serif;padding:14px 26px;border-radius:99px;transition:transform .2s,box-shadow .2s}
+.btn.p{color:#fff;background:linear-gradient(135deg,#8b5cf6,#6d28d9);box-shadow:0 0 0 1px #ffffff1f inset,0 10px 36px #8b5cf666}
+.btn.p:hover{transform:translateY(-3px);box-shadow:0 0 0 1px #ffffff33 inset,0 16px 48px #8b5cf699}
+.btn.g{color:var(--txt);border:1px solid #ffffff2e;background:#ffffff0a}
+.btn.g:hover{background:#ffffff14;transform:translateY(-3px)}
+.facts{display:flex;flex-wrap:wrap;gap:22px;margin-top:30px;color:var(--dim);font-size:14px}
+.facts b{display:block;color:var(--txt);font:700 20px "Sora",system-ui,sans-serif}
+.stage{perspective:1200px}
+.stack{position:relative;height:440px;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .2s}
+.c{position:absolute;border-radius:20px;padding:16px 18px;font-size:14px;animation:float 7s ease-in-out infinite;transform:rotate(var(--r))}
+@keyframes float{50%{transform:rotate(var(--r)) translateY(-12px)}}
+.c1{--r:-7deg;left:2%;top:10px;width:min(270px,64vw);background:#fff;color:#14172b;box-shadow:0 30px 70px #0009,0 0 80px #8b5cf633}
+.c2{--r:6deg;right:0;top:120px;width:min(250px,60vw);background:linear-gradient(160deg,#ffffff1c,#ffffff0a);border:1px solid #ffffff2b;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 24px 60px #0008,0 0 60px #e5484d22;animation-delay:-2s}
+.c3{--r:-3deg;left:10%;bottom:0;width:min(270px,64vw);background:linear-gradient(160deg,#8b5cf633,#6d28d91f);border:1px solid #a78bfa55;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 24px 60px #0008,0 0 70px #8b5cf655;animation-delay:-4s}
+.c1 h4{font-size:12px;letter-spacing:.12em;color:#6b6f8a;margin-bottom:8px}
+.r{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px dashed #e3e1f0}
+.r.x{background:#ffe9eb;margin:0 -8px;padding:6px 8px;border-radius:6px}
+.r i{font-style:normal;font-size:10px;font-weight:700;color:#fff;background:var(--bad);border-radius:99px;padding:1px 7px;margin-left:5px}
+.r.t{font-weight:800;font-size:16px;border-top:2px solid #14172b;margin-top:4px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--bad);box-shadow:0 0 12px var(--bad);margin-right:8px}
+.c2 b{display:block;margin-bottom:6px}.c2 p,.c3 p{margin:0;color:#d7d3f0}
+.pillx{display:inline-block;margin-top:10px;padding:5px 12px;border-radius:99px;background:linear-gradient(135deg,#8b5cf6,#c084fc);color:#fff;font-weight:600;font-size:12px}
+.sec{padding:80px 16px}
+.head{text-align:center;max-width:640px;margin:0 auto 44px}
+.head h2{font-size:clamp(30px,5vw,48px);font-weight:800;margin-bottom:12px}
+.head p{color:var(--mut);margin:0}
+.steps,.grid{display:grid;gap:18px;grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.steps,.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.steps,.grid{grid-template-columns:1fr}}
+.gl{background:linear-gradient(160deg,#ffffff12,#ffffff06);border:1px solid #ffffff1f;border-radius:22px;padding:26px;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:transform .3s,border-color .3s,box-shadow .3s}
+.gl:hover{transform:translateY(-8px) rotate(-.6deg);border-color:#a78bfa77;box-shadow:0 24px 60px #8b5cf63d}
+.gl h3{font-size:20px;margin:14px 0 8px}.gl p{margin:0;color:var(--mut);font-size:16px}
+.num{font:800 15px "Sora",system-ui,sans-serif;color:var(--v2);background:#8b5cf624;border:1px solid #8b5cf655;width:42px;height:42px;border-radius:12px;display:grid;place-items:center}
+.try .box{max-width:760px;margin:0 auto;background:linear-gradient(160deg,#ffffff14,#ffffff07);border:1px solid #a78bfa44;border-radius:26px;padding:26px;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 30px 80px #0008,0 0 90px #8b5cf62e}
 label{font-weight:600;display:block;margin-bottom:8px}
-textarea{width:100%;min-height:170px;padding:14px;border:1.5px solid #ffffff2b;border-radius:14px;font:inherit;background:#0a0f1fb8;color:var(--txt);resize:vertical}
-textarea::placeholder{color:#7f8bb0}
-textarea:focus{outline:none;border-color:var(--t);box-shadow:0 0 0 4px #2dd4bf33}
-button:focus-visible{outline:3px solid var(--t);outline-offset:2px}
+textarea{width:100%;min-height:170px;padding:14px;border:1.5px solid #ffffff2b;border-radius:14px;font:inherit;background:#050509b8;color:var(--txt);resize:vertical}
+textarea::placeholder{color:var(--dim)}
+textarea:focus{outline:none;border-color:var(--v);box-shadow:0 0 0 4px #8b5cf633}
+button:focus-visible,a:focus-visible{outline:3px solid var(--v2);outline-offset:2px}
 .pills{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-.pill{padding:8px 18px;border-radius:99px;border:1.5px solid #ffffff2b;background:#ffffff0f;font:inherit;font-weight:600;cursor:pointer;color:var(--mut)}
-.pill.on{background:linear-gradient(135deg,var(--v),#5b8cff);border-color:transparent;color:#fff}
+.pill{padding:8px 18px;border-radius:99px;border:1.5px solid #ffffff2b;background:#ffffff0a;font:inherit;font-weight:600;cursor:pointer;color:var(--mut);transition:all .2s}
+.pill:hover{border-color:var(--v2)}
+.pill.on{background:linear-gradient(135deg,#8b5cf6,#6d28d9);border-color:transparent;color:#fff;box-shadow:0 0 24px #8b5cf666}
 .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
-button{font:inherit;font-weight:700;padding:13px 22px;border-radius:14px;cursor:pointer}
-.main{flex:1;min-width:170px;border:0;color:#07101f;background:linear-gradient(135deg,var(--v),var(--t));box-shadow:0 5px 0 #4a3aa8,0 14px 26px #7c5cff55;transition:transform .08s,box-shadow .08s}
-.main:active{transform:translateY(4px);box-shadow:0 1px 0 #4a3aa8,0 6px 12px #7c5cff55}
-.alt{background:#ffffff12;border:1.5px solid #ffffff33;color:var(--txt)}
+button{font:inherit;font-weight:600;padding:13px 22px;border-radius:99px;cursor:pointer}
+.main{flex:1;min-width:170px;border:0;color:#fff;background:linear-gradient(135deg,#8b5cf6,#6d28d9);box-shadow:0 10px 36px #8b5cf666;transition:transform .2s,box-shadow .2s}
+.main:hover{transform:translateY(-3px);box-shadow:0 16px 48px #8b5cf699}
+.alt{background:#ffffff10;border:1.5px solid #ffffff33;color:var(--txt)}
 button:disabled{opacity:.65;cursor:wait}
-.note{font-size:14px;color:var(--mut);margin:14px 0 0}
-.err{margin-top:16px;padding:12px 14px;border-left:5px solid var(--pk);background:#ff6b9d1f;color:#ffd9e6;border-radius:10px}
-#out{perspective:1100px}
-.receipt{margin-top:24px;background:#fff;color:#14213d;padding:26px 22px 40px;box-shadow:0 24px 60px #00000066;animation:up .55s cubic-bezier(.2,.8,.2,1);transform-origin:top center;
+.note{font-size:14px;color:var(--dim);margin:14px 0 0}
+.err{margin-top:16px;padding:12px 14px;border-left:5px solid var(--bad);background:#e5484d22;color:#ffd5d7;border-radius:10px}
+#out{max-width:760px;margin:0 auto;perspective:1200px}
+.receipt{margin-top:26px;background:#fff;color:#14172b;padding:26px 22px 40px;box-shadow:0 30px 80px #000a,0 0 80px #8b5cf644;animation:up .6s cubic-bezier(.2,.8,.2,1);transform-origin:top center;
  -webkit-mask:radial-gradient(circle 8px at 8px 100%,#0000 98%,#000) 0 0/16px 100%;mask:radial-gradient(circle 8px at 8px 100%,#0000 98%,#000) 0 0/16px 100%;
  -webkit-mask-composite:source-in;mask-composite:intersect}
 @keyframes up{from{opacity:0;transform:rotateX(16deg) translateY(30px)}}
-@media(prefers-reduced-motion:reduce){.receipt,.float{animation:none}}
-.receipt h2{font:800 22px "Bricolage Grotesque",system-ui,sans-serif;margin:0;color:#5a6678}
-.total{font:800 42px "Bricolage Grotesque",system-ui,sans-serif;margin:2px 0 8px;color:#14213d}
-.listen{border:0;color:#fff;background:linear-gradient(135deg,#6d4cff,#1fa392);padding:10px 20px;border-radius:99px;margin:4px 0 8px}
+.receipt h2{font-size:22px;color:#6b6f8a}
+.total{font:800 42px "Sora",system-ui,sans-serif;margin:2px 0 8px;color:#14172b}
+.listen{border:0;color:#fff;background:linear-gradient(135deg,#8b5cf6,#6d28d9);padding:10px 20px;border-radius:99px;margin:4px 0 8px}
 .charge{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 0;border-top:1px dashed var(--rl)}
 .charge .nm{font-weight:600}.charge .am{font-weight:600;text-align:right}
-.charge .mn{grid-column:1/-1;color:#5a6678;font-size:16px}
+.charge .mn{grid-column:1/-1;color:#5b5f78;font-size:16px}
 .tag{display:inline-block;margin-left:8px;padding:1px 9px;border-radius:99px;font-size:13px;font-weight:600;color:#fff}
 .normal .tag{background:var(--ok)}.check{border-left:5px solid var(--chk);padding-left:10px}.check .tag{background:var(--chk)}
 .suspicious{border-left:5px solid var(--bad);padding-left:10px;background:#fdf3f2}.suspicious .tag{background:var(--bad)}
-h3{font:800 20px "Bricolage Grotesque",system-ui,sans-serif;margin:26px 0 6px}
-ul{margin:0;padding-left:20px}li{margin:4px 0}
-.msg{white-space:pre-wrap;background:#f4f7fb;border:1px solid var(--rl);border-radius:12px;padding:14px;margin:6px 0 10px}
-.receipt .alt{background:#fff;color:#14213d;border:1.5px solid #14213d}
-footer{margin-top:30px;font-size:14px;color:var(--mut);text-align:center}
+.receipt h3{font-size:20px;margin:26px 0 6px}
+.receipt ul{margin:0;padding-left:20px}.receipt li{margin:4px 0}
+.msg{white-space:pre-wrap;background:#f5f4fb;border:1px solid var(--rl);border-radius:12px;padding:14px;margin:6px 0 10px}
+.receipt .alt{background:#fff;color:#14172b;border:1.5px solid #14172b}
+footer{padding:30px 16px 50px;text-align:center;color:var(--dim);font-size:14px;border-top:1px solid #ffffff12}
+.sec[id]{scroll-margin-top:70px}
+.js .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.orb,.c,.receipt{animation:none}.js .reveal{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
-<div class="aurora"></div>
-<header class="hero">
-  <div class="nav"><span class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="#07101f"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span>Bill Shock Explainer</div>
-  <div class="in">
-    <div>
-      <h1>Understand any bill <span class="grad">in seconds</span></h1>
-      <p class="sub">Paste a confusing bill. Get every charge in simple words, suspicious ones flagged, and a complaint message ready to send.</p>
-      <ul class="chips"><li>English</li><li>हिन्दी</li><li>मराठी</li><li>Listen aloud</li><li>Nothing saved on this site</li></ul>
-    </div>
-    <div class="stage" aria-hidden="true"><div class="float"><div class="bill3d" id="bill3d">
-      <h4>ELECTRICITY BILL</h4>
-      <div class="ml"><span>Energy charge</span><span>1,486.00</span></div>
-      <div class="ml"><span>Fixed charge</span><span>130.00</span></div>
-      <div class="ml r"><span>Meter rent<i>Charged twice</i></span><span>45.00</span></div>
-      <div class="ml r"><span>Meter rent</span><span>45.00</span></div>
-      <div class="ml a"><span>Late surcharge<i>Check</i></span><span>120.00</span></div>
-      <div class="ml t"><span>Total</span><span>2,639.70</span></div>
-    </div></div></div>
-  </div>
-</header>
+<div class="bg"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+<nav class="nav" id="nav">
+  <a class="brand" href="#top"><span class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span>Bill Shock Explainer</a>
+  <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  <div class="links"><a href="#how">How it works</a><a href="#features">Features</a><a class="cta" href="#try">Try it free</a></div>
+</nav>
 
-<div class="wrap">
-  <div class="card">
+<header class="hero" id="top"><div class="in">
+  <div class="reveal">
+    <span class="badge">AI bill explainer &middot; English &middot; हिन्दी &middot; मराठी</span>
+    <h1>Never pay a bill you <span class="grad">don't understand.</span></h1>
+    <p class="lead">Paste any bill. Get every charge in plain words, suspicious ones flagged, and a complaint message ready to send.</p>
+    <div class="btns"><a class="btn p" href="#try">Explain my bill</a><a class="btn g" href="#how">See how it works</a></div>
+    <div class="facts"><div><b>3</b>languages</div><div><b>Audio</b>reads it aloud</div><div><b>0</b>bills saved here</div></div>
+  </div>
+  <div class="stage reveal" aria-hidden="true"><div class="stack" id="stack">
+    <div class="c c1"><h4>HOSPITAL BILL</h4>
+      <div class="r"><span>Room charges</span><span>8,400</span></div>
+      <div class="r"><span>Consultation</span><span>1,200</span></div>
+      <div class="r x"><span>Service fee<i>Twice</i></span><span>350</span></div>
+      <div class="r x"><span>Service fee</span><span>350</span></div>
+      <div class="r t"><span>Total</span><span>10,300</span></div></div>
+    <div class="c c2"><b><span class="dot"></span>Looks wrong</b><p>The service fee of 350 appears twice. Ask the hospital to remove one.</p></div>
+    <div class="c c3"><p>Complaint message ready. Hear it in your language:</p><span class="pillx">&#9654; Listen in मराठी</span></div>
+  </div></div>
+</div></header>
+
+<section class="sec" id="how"><div class="in">
+  <div class="head reveal"><h2>Three steps. No confusion.</h2><p>From a puzzling bill to a clear next step in under a minute.</p></div>
+  <div class="steps">
+    <div class="gl reveal"><div class="num">01</div><h3>Paste</h3><p>Copy the text of any bill: hospital, hotel, phone, school fees and more.</p></div>
+    <div class="gl reveal"><div class="num">02</div><h3>Understand</h3><p>Every charge is explained in simple words, with suspicious ones flagged.</p></div>
+    <div class="gl reveal"><div class="num">03</div><h3>Act</h3><p>Copy a ready-to-send complaint message, or listen to the explanation.</p></div>
+  </div>
+</div></section>
+
+<section class="sec" id="features"><div class="in">
+  <div class="head reveal"><h2>Built for real bills, real families.</h2><p>Everything you need to catch a mistake before you pay.</p></div>
+  <div class="grid">
+    <div class="gl reveal"><div class="num">&#10003;</div><h3>Plain words</h3><p>Each charge explained the way a friend would explain it.</p></div>
+    <div class="gl reveal"><div class="num">&#9873;</div><h3>Clear verdicts</h3><p>Every line is marked Looks fine, Ask about it or Looks wrong.</p></div>
+    <div class="gl reveal"><div class="num">!</div><h3>Red flags</h3><p>Double charges, vague adjustments and surprise fees get called out.</p></div>
+    <div class="gl reveal"><div class="num">&#9993;</div><h3>Complaint, ready</h3><p>A polite message you can copy and send in one tap.</p></div>
+    <div class="gl reveal"><div class="num">&#9654;</div><h3>Reads aloud</h3><p>Hear the explanation in English, Hindi or Marathi, ideal for elders.</p></div>
+    <div class="gl reveal"><div class="num">&#9679;</div><h3>Private by design</h3><p>This site does not store your bills. Remove personal numbers before pasting.</p></div>
+  </div>
+</div></section>
+
+<section class="sec try" id="try"><div class="in">
+  <div class="head reveal"><h2>Try it now.</h2><p>Paste a bill, or tap the sample to see it work.</p></div>
+  <div class="box reveal">
     <label for="bill">Paste your bill text here</label>
-    <textarea id="bill" placeholder="Copy the text from your electricity, phone, internet or hospital bill and paste it here..."></textarea>
+    <textarea id="bill" placeholder="Copy the text from your hospital, hotel, phone or any other bill and paste it here..."></textarea>
     <div class="pills" id="pills" role="group" aria-label="Language">
       <button type="button" class="pill on" data-l="English">English</button>
       <button type="button" class="pill" data-l="Hindi">हिन्दी</button>
@@ -110,8 +181,9 @@ footer{margin-top:30px;font-size:14px;color:var(--mut);text-align:center}
     <p class="note">Tip: remove personal numbers (account, Aadhaar, card) before pasting.</p>
   </div>
   <div id="out" aria-live="polite"></div>
-  <footer>This is an AI explanation, not legal or financial advice. Always confirm important charges with your provider.</footer>
-</div>
+</div></section>
+
+<footer>This is an AI explanation, not legal or financial advice. Always confirm important charges with your provider.</footer>
 <script>
 var SAMPLE = "MAHA POWER DISTRIBUTION - ELECTRICITY BILL\nBilling period: 01 Oct - 31 Oct\nUnits consumed: 212 kWh\nEnergy charge: Rs 1,486.00\nFixed charge: Rs 130.00\nWheeling charge: Rs 190.80\nFuel adjustment charge: Rs 254.40\nElectricity duty: Rs 188.50\nMeter rent: Rs 45.00\nMeter rent: Rs 45.00\nLate payment surcharge: Rs 120.00\nPrevious payment of Rs 2,100 received on 05 Oct (due date 12 Oct)\nMisc adjustment: Rs 180.00\nTotal payable: Rs 2,639.70\nDue date: 14 Nov";
 var VOICE={English:"en-IN",Hindi:"hi-IN",Marathi:"mr-IN"}, lang="English", usedLang="English";
@@ -196,11 +268,17 @@ $("go").onclick=function(){
 };
 </script>
 <script>
-(function(){var h=document.querySelector(".hero"),b=document.getElementById("bill3d");
-if(!h||!b||matchMedia("(prefers-reduced-motion:reduce)").matches)return;
-h.addEventListener("pointermove",function(e){var r=h.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
-b.style.setProperty("--ry",(x*18)+"deg");b.style.setProperty("--rx",(-y*14)+"deg")});
-h.addEventListener("pointerleave",function(){b.style.setProperty("--ry","0deg");b.style.setProperty("--rx","0deg")});})();
+(function(){
+var nav=document.getElementById("nav"),bt=document.getElementById("burger");
+bt.onclick=function(){var o=nav.classList.toggle("open");bt.setAttribute("aria-expanded",o)};
+Array.prototype.forEach.call(document.querySelectorAll(".links a"),function(a){a.onclick=function(){nav.classList.remove("open")}});
+var io="IntersectionObserver" in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12}):null;
+Array.prototype.forEach.call(document.querySelectorAll(".reveal"),function(r){io?io.observe(r):r.classList.add("in")});
+var h=document.getElementById("top"),s=document.getElementById("stack");
+if(h&&s&&!matchMedia("(prefers-reduced-motion:reduce)").matches){
+h.addEventListener("pointermove",function(e){var r=h.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;s.style.setProperty("--ry",(x*14)+"deg");s.style.setProperty("--rx",(-y*10)+"deg")});
+h.addEventListener("pointerleave",function(){s.style.setProperty("--ry","0deg");s.style.setProperty("--rx","0deg")});}
+})();
 </script>
 </body>
 </html>
