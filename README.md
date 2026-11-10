@@ -5,6 +5,7 @@ AI tool that makes confusing bills easy to understand. Paste any bill (hospital,
 Built for the **BharatCode Build League** using the BharatCode model API.
 
 **Live demo:** https://billshockexplainer.vercel.app/ (tap "Try a sample bill")
+
 **Compare bills:** https://billshockexplainer.vercel.app/compare.html
 
 ## Screenshots
@@ -64,7 +65,7 @@ The app turns a pile of unclear line items into plain language. Each charge is e
 - Lists red flags and questions to ask the company
 - Writes a ready-to-send complaint message with a Copy button
 - Reads the explanation aloud in English, Hindi or Marathi
-- - Compares your bill with previous bills to find repeated charges, unusual price jumps and new charges (`/compare.html`)
+- Compares your bill with previous bills to find repeated charges, unusual price jumps and new charges (`/compare.html`)
 - Works for any bill type (hospital, hotel, phone, school fees and more)
 - Works on phones and laptops, no sign-up needed
 
