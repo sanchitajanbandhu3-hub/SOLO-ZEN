@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050509">
+<title>Compare bills | Bill Shock Explainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050509;--v:#8b5cf6;--v2:#a78bfa;--txt:#f4f2ff;--mut:#a8a5c4;--dim:#7d7a99;--bad:#e5484d;--amb:#f5a524;--ok:#22a06b}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:radial-gradient(900px 600px at 50% -10%,#1a1038,var(--bg));background-attachment:fixed;color:var(--txt);font:17px/1.6 "Inter",system-ui,sans-serif;min-height:100vh}
+h1,h2,h3{font-family:"Sora",system-ui,sans-serif;letter-spacing:-.02em;margin:0}
+.nav{display:flex;align-items:center;justify-content:space-between;max-width:900px;margin:0 auto;padding:16px}
+.brand{display:flex;align-items:center;gap:10px;font:700 18px "Sora",system-ui,sans-serif;color:var(--txt);text-decoration:none}
+.logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--v),#c084fc);display:grid;place-items:center;box-shadow:0 0 24px #8b5cf688}
+.back{color:var(--mut);text-decoration:none;font-size:15px;border:1px solid #ffffff2b;border-radius:99px;padding:8px 16px}
+.back:hover{color:#fff;border-color:var(--v2)}
+.wrap{max-width:900px;margin:0 auto;padding:10px 16px 60px}
+h1{font-size:clamp(32px,6vw,52px);line-height:1.05;font-weight:800;margin:14px 0 12px}
+.grad{background:linear-gradient(90deg,#c4b5fd,#e879f9,#8b5cf6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--mut);max-width:56ch;margin:0 0 26px}
+.box{background:linear-gradient(160deg,#ffffff14,#ffffff07);border:1px solid #a78bfa44;border-radius:24px;padding:24px;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 30px 80px #0008,0 0 90px #8b5cf62e}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+label{font-weight:600;display:block;margin-bottom:8px}
+textarea{width:100%;min-height:200px;padding:14px;border:1.5px solid #ffffff2b;border-radius:14px;font:inherit;font-size:15px;background:#050509b8;color:var(--txt);resize:vertical}
+textarea::placeholder{color:var(--dim)}
+textarea:focus{outline:none;border-color:var(--v);box-shadow:0 0 0 4px #8b5cf633}
+.row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+button{font:inherit;font-weight:600;padding:13px 22px;border-radius:99px;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid var(--v2);outline-offset:2px}
+.main{flex:1;min-width:170px;border:0;color:#fff;background:linear-gradient(135deg,#8b5cf6,#6d28d9);box-shadow:0 10px 36px #8b5cf666;transition:transform .2s}
+.main:hover{transform:translateY(-3px)}
+.alt{background:#ffffff10;border:1.5px solid #ffffff33;color:var(--txt)}
+button:disabled{opacity:.65;cursor:wait}
+.note{font-size:14px;color:var(--dim);margin:14px 0 0}
+.err{margin-top:18px;padding:12px 14px;border-left:5px solid var(--bad);background:#e5484d22;color:#ffd5d7;border-radius:10px}
+.sum{margin-top:26px;padding:22px;border-radius:20px;background:#fff;color:#14172b;box-shadow:0 30px 80px #000a,0 0 80px #8b5cf644}
+.sum h2{font-size:15px;color:#6b6f8a;letter-spacing:.08em;text-transform:uppercase}
+.big{font:800 34px "Sora",system-ui,sans-serif;margin:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{border-radius:99px;padding:3px 12px;font-size:14px;font-weight:600;background:#f0eefb;color:#3b2a8a}
+.f{margin-top:12px;padding:16px 18px;border-radius:16px;background:#ffffff0d;border:1px solid #ffffff22;border-left:6px solid var(--dim)}
+.f.high{border-left-color:var(--bad);background:#e5484d1a}
+.f.medium{border-left-color:var(--amb);background:#f5a52414}
+.f.low{border-left-color:var(--ok);background:#22a06b14}
+.f b{display:block;font:700 13px "Sora",system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.f.high b{color:#ff8a8e}.f.medium b{color:#ffcb6b}.f.low b{color:#5fd6a0}
+.f p{margin:0}
+.fn{margin-top:26px;font-size:14px;color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="nav"><a class="brand" href="/"><span class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span>Bill Shock Explainer</a><a class="back" href="/">&larr; Back to home</a></div>
+<div class="wrap">
+  <h1>Compare with your <span class="grad">previous bills.</span></h1>
+  <p class="lead">Paste this month's bill and one or more earlier bills. We find repeated charges, unusual price jumps and new charges, using exact calculations, not guesses.</p>
+  <div class="box">
+    <div class="grid">
+      <div><label for="cur">Current bill</label><textarea id="cur" placeholder="Paste this month's bill. One charge per line, like:&#10;Energy charge: Rs 1,486.00&#10;Meter rent: Rs 45.00&#10;Total payable: Rs 2,639.70"></textarea></div>
+      <div id="w1"><label for="p1">Previous bill</label><textarea id="p1" placeholder="Paste last month's bill here"></textarea></div>
+      <div id="w2" hidden><label for="p2">Earlier bill (2)</label><textarea id="p2" placeholder="Optional: an older bill"></textarea></div>
+      <div id="w3" hidden><label for="p3">Earlier bill (3)</label><textarea id="p3" placeholder="Optional: another older bill"></textarea></div>
+    </div>
+    <div class="row">
+      <button class="main" id="go">Compare bills</button>
+      <button class="alt" id="addp" type="button">+ Add another previous bill</button>
+      <button class="alt" id="sample" type="button">Try a sample</button>
+    </div>
+    <p class="note">Tip: remove personal numbers (account, Aadhaar, card) before pasting. Higher charges can simply mean you used more, so treat findings as things to check.</p>
+  </div>
+  <div id="out" aria-live="polite"></div>
+  <p class="fn">Calculated by a Python function, not AI. It reads lines that look like "Charge name: amount". This is for information only, not legal or financial advice.</p>
+</div>
+<script>
+var PREV="Energy charge: Rs 1,320.00\nFixed charge: Rs 130.00\nWheeling charge: Rs 170.00\nFuel adjustment charge: Rs 180.00\nElectricity duty: Rs 160.00\nMeter rent: Rs 45.00\nTotal payable: Rs 2,005.00";
+var CUR="Energy charge: Rs 1,486.00\nFixed charge: Rs 130.00\nWheeling charge: Rs 190.80\nFuel adjustment charge: Rs 254.40\nElectricity duty: Rs 188.50\nMeter rent: Rs 45.00\nMeter rent: Rs 45.00\nLate payment surcharge: Rs 120.00\nMisc adjustment: Rs 180.00\nTotal payable: Rs 2,639.70";
+var LABEL={high:"Check this first",medium:"Worth asking about",low:"Good to know"};
+var $=function(i){return document.getElementById(i)};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
+function m(x){return Number(x).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function fail(msg){var o=$("out");o.textContent="";o.appendChild(el("div","err",msg))}
+function render(j){
+  var o=$("out");o.textContent="";
+  if(!j.charges_found){fail("I couldn't read any charges. Put one charge per line, like: Energy charge: Rs 1,486.00");return}
+  var s=el("div","sum");
+  s.appendChild(el("h2",null,"Total compared with last bill"));
+  var pct=j.total_change_pct;
+  s.appendChild(el("div","big",m(j.total_from)+" \u2192 "+m(j.total_to)+(pct===null?"":"  ("+(pct>0?"+":"")+pct+"%)")));
+  var c=el("div","chips"),n={high:0,medium:0,low:0};
+  j.findings.forEach(function(f){n[f.severity]++});
+  c.appendChild(el("span","chip",j.findings.length+" finding"+(j.findings.length===1?"":"s")));
+  c.appendChild(el("span","chip",j.unchanged+" unchanged"));
+  c.appendChild(el("span","chip","vs "+j.previous_bills+" previous bill"+(j.previous_bills===1?"":"s")));
+  s.appendChild(c);o.appendChild(s);
+  if(!j.findings.length)o.appendChild(el("div","f low","Nothing unusual found. Every charge is within about 15% of your previous bill and nothing is repeated."));
+  j.findings.forEach(function(f){
+    var d=el("div","f "+f.severity);d.appendChild(el("b",null,LABEL[f.severity]));d.appendChild(el("p",null,f.message));o.appendChild(d)});
+  s.scrollIntoView({behavior:"smooth",block:"start"});
+}
+var shown=1;
+$("addp").onclick=function(){if(shown<3){shown++;$("w"+shown).hidden=false}if(shown>=3)$("addp").hidden=true};
+$("sample").onclick=function(){$("cur").value=CUR;$("p1").value=PREV};
+$("go").onclick=function(){
+  var cur=$("cur").value.trim(),prev=[];
+  for(var i=1;i<=3;i++){var v=$("p"+i).value.trim();if(v)prev.push(v)}
+  if(cur.length<20||!prev.length){fail("Paste your current bill and at least one previous bill, or tap Try a sample.");return}
+  var b=$("go");b.disabled=true;b.textContent="Comparing...";$("out").textContent="";
+  fetch("/api/compare",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({current:cur,previous:prev})})
+    .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||"Something went wrong.");return j})})
+    .then(render).catch(function(e){fail(e.message||"Something went wrong. Please try again.")})
+    .finally(function(){b.disabled=false;b.textContent="Compare bills"});
+};
+</script>
+</body>
+</html>
