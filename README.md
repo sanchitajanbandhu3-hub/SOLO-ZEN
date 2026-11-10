@@ -5,6 +5,7 @@ AI tool that makes confusing bills easy to understand. Paste any bill (hospital,
 Built for the **BharatCode Build League** using the BharatCode model API.
 
 **Live demo:** https://billshockexplainer.vercel.app/ (tap "Try a sample bill")
+**Compare bills:** https://billshockexplainer.vercel.app/compare.html
 
 ## Screenshots
 
@@ -63,6 +64,7 @@ The app turns a pile of unclear line items into plain language. Each charge is e
 - Lists red flags and questions to ask the company
 - Writes a ready-to-send complaint message with a Copy button
 - Reads the explanation aloud in English, Hindi or Marathi
+- - Compares your bill with previous bills to find repeated charges, unusual price jumps and new charges (`/compare.html`)
 - Works for any bill type (hospital, hotel, phone, school fees and more)
 - Works on phones and laptops, no sign-up needed
 
@@ -124,9 +126,11 @@ Production endpoint: `POST https://billshockexplainer.vercel.app/api/explain`
 ```
 .
 ├── index.html          # web page: UI and client-side JavaScript
+├── compare.html        # page that compares a bill with previous bills
 ├── api/
 │   ├── explain.js      # calls the BharatCode API, returns the explanation as JSON
-│   └── speak.py        # Python function that turns text into MP3 audio
+│   ├── speak.py        # Python function that turns text into MP3 audio
+│   └── compare.py      # Python function that compares bills (exact math, no AI)
 ├── requirements.txt    # Python dependency (gTTS)
 ├── vercel.json         # function settings
 ├── BharatCode.txt      # how this project uses BharatCode (hackathon requirement)
@@ -202,7 +206,33 @@ Errors return `{ "error": "message" }` with status 400 (no or too little text), 
 
 Request: `{ "text": "<text to speak>", "language": "English" }`
 Response: `{ "audio": "<base64 MP3>" }`, or status 502 with `{ "error": "Could not make audio" }`.
+### `POST /api/compare`
 
+Compares a current bill with up to 3 previous bills. Uses plain Python calculations, no AI and no API key.
+
+Request:
+
+```json
+{ "current": "<current bill text>", "previous": ["<previous bill text>"] }
+```
+
+Response:
+
+```json
+{
+  "charges_found": 8,
+  "previous_bills": 1,
+  "total_from": 2005.0,
+  "total_to": 2639.7,
+  "total_change_pct": 31.7,
+  "unchanged": 4,
+  "findings": [
+    { "type": "duplicate | price_jump | new_charge | decrease | dropped", "severity": "high | medium | low", "name": "string", "message": "string" }
+  ]
+}
+```
+
+A charge is flagged as a price jump when it is at least 15% above the same charge on the previous bill (or the average of several). Bad input returns status 400 with `{ "error": "message" }`.
 ## Security and privacy
 
 - The API key is only stored as a server environment variable. It is never sent to the browser or committed to the repository.
@@ -221,7 +251,8 @@ Response: `{ "audio": "<base64 MP3>" }`, or status 502 with `{ "error": "Could n
 - Audio depends on the unofficial gTTS library and Google's service. If it fails, the browser's own voice is used, and that voice may not exist for every language on every phone.
 - Only English, Hindi and Marathi are supported.
 - Needs an internet connection and a BharatCode API plan with access.
-
+- The comparison reads lines that look like "Charge name: amount". Bills pasted as tables or scanned images may not parse, and a higher charge can simply mean higher usage.
+  
 ## Current verification status
 
 | Item | Status |
@@ -230,7 +261,7 @@ Response: `{ "audio": "<base64 MP3>" }`, or status 502 with `{ "error": "Could n
 | Bill explanation flow with the sample bill | Tested in English, Hindi and Marathi |
 | Audio ("Listen") | Working with Python audio |
 | Bills other than the sample | Tested with an electricity bill |
-
+| Bill comparison (`/compare.html`) | Tested with a sample pair of electricity bills |
 ## Testing and quality verification
 
 There is no automated test suite yet. Quality has been checked manually:
@@ -238,14 +269,14 @@ There is no automated test suite yet. Quality has been checked manually:
 - Ran the sample bill in all three languages and checked the result renders correctly
 - Checked the live link opens in a private browser window without a login
 - Checked the page on an Android phone
-
+- Ran the sample comparison and checked that the repeated charge, price jumps and new charges were found
 Planned: automated tests for response parsing and input validation.
 
 ## Roadmap
 
 Planned, not yet built:
 
-- Compare two bills and show what changed
+
 - Read bills from PDFs and photos
 - A "shock score" summary for each bill
 - More languages
